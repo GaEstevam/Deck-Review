@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import AlertList from '../components/AlertList';
 import DeckScopeBar from '../components/DeckScopeBar';
+import MigrationBanner from '../components/MigrationBanner';
 import OwnershipSummary from '../components/OwnershipSummary';
 import WeeklyChart from '../components/WeeklyChart';
 import { Empty, PageHead } from '../components/ui';
@@ -37,23 +38,30 @@ export default function Painel() {
   }, [scopeMatches, deckMatches, data.meta.entries, data.collection, versions, version]);
 
   const countdown = (
-    <div className="card countdown">
-      {days > 0 ? (
-        <>
-          <strong className="num">{days}</strong>
-          <span>
-            {days === 1 ? 'dia' : 'dias'} para o <b>{s.eventName}</b> <span className="muted">({fmtDate(s.eventDate)})</span>
-          </span>
-        </>
-      ) : days === 0 ? (
-        <span>
-          <b>Hoje é o {s.eventName}!</b> Boa sorte.
-        </span>
-      ) : (
-        <span className="muted">
-          O {s.eventName} foi em {fmtDate(s.eventDate)}. <Link to="/config">Definir o próximo evento</Link>
-        </span>
-      )}
+    <div className="hero">
+      <div className="hero-row">
+        <div>
+          <h2>
+            {days > 0 ? `Rumo ao ${s.eventName}` : days === 0 ? `Hoje é o ${s.eventName}` : `${s.eventName} encerrado`}
+            <span className="dot">.</span>
+          </h2>
+          <p>
+            {days >= 0 ? fmtDate(s.eventDate) : <Link to="/config" style={{ color: '#fff' }}>Definir o próximo evento</Link>}
+            {deck ? ` · ${deck.name}${version ? ` v${version.number}` : ''}` : ''}
+          </p>
+          <div className="energy-dots" style={{ marginTop: 14 }} aria-hidden="true">
+            {['--fire', '--water', '--grass', '--lightning', '--psychic', '--fighting'].map((c) => (
+              <span key={c} style={{ background: `var(${c})` }} />
+            ))}
+          </div>
+        </div>
+        {days > 0 && (
+          <div style={{ textAlign: 'right' }}>
+            <div className="big num">{days}</div>
+            <div style={{ color: 'rgba(255,255,255,.85)', fontSize: 13 }}>{days === 1 ? 'dia restante' : 'dias restantes'}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 
@@ -61,6 +69,7 @@ export default function Painel() {
     return (
       <>
         <PageHead title="Painel" subtitle="Meu deck está pronto para o evento?" />
+        <MigrationBanner />
         {countdown}
         <div className="section">
           <Empty title="Cadastre seu primeiro deck" text="Cole a lista do TCG Live e comece a registrar partidas." to="/decks" action="Cadastrar deck" />
@@ -76,11 +85,8 @@ export default function Painel() {
 
   return (
     <>
-      <PageHead title="Painel" subtitle={`${deck.name}${version ? ` · v${version.number}` : ''}`}>
-        <Link className="btn primary" to="/registrar">
-          + Registrar partida
-        </Link>
-      </PageHead>
+      <PageHead title="Painel" subtitle="Meu deck está pronto para o evento?" />
+      <MigrationBanner />
 
       {countdown}
 
@@ -91,6 +97,7 @@ export default function Painel() {
 
       <div className="section grid grid-3">
         <div className="card stat">
+          <span className="stat-icon" aria-hidden="true">★</span>
           <span className="stat-label">Taxa de vitória geral</span>
           <span className={`stat-value${small ? ' small-sample' : ''}`}>{pct(rec.rate)}</span>
           <span className="stat-sub">
@@ -100,6 +107,7 @@ export default function Painel() {
         </div>
 
         <div className="card stat">
+          <span className="stat-icon" aria-hidden="true">◎</span>
           <span className="stat-label">Taxa esperada no {s.eventName.replace(/^Regional do /, '')}</span>
           <span className={`stat-value${small || noMeta ? ' small-sample' : ''}`}>{pct(exp.rate)}</span>
           <span className="stat-sub">
@@ -115,6 +123,7 @@ export default function Painel() {
         </div>
 
         <div className="card stat">
+          <span className="stat-icon" aria-hidden="true">↗</span>
           <span className="stat-label">Tendência (deck inteiro)</span>
           <span className={`stat-value ${trInfo.cls}`}>{trInfo.text}</span>
           <span className="stat-sub">

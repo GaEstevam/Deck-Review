@@ -8,7 +8,10 @@ export function PageHead({ title, subtitle, children }: { title: string; subtitl
   return (
     <div className="page-head">
       <div>
-        <h1>{title}</h1>
+        <h1>
+          {title}
+          <span className="dot">.</span>
+        </h1>
         {subtitle && <p>{subtitle}</p>}
       </div>
       {children && <div className="row">{children}</div>}
@@ -19,7 +22,11 @@ export function PageHead({ title, subtitle, children }: { title: string; subtitl
 export function Empty({ title, text, to, action }: { title: string; text?: string; to?: string; action?: string }) {
   return (
     <div className="card empty">
-      <h2>{title}</h2>
+      <div className="icon-tile">⚡</div>
+      <h2>
+        {title}
+        <span className="dot">.</span>
+      </h2>
       {text && <p>{text}</p>}
       {to && action && (
         <Link className="btn primary" to={to}>

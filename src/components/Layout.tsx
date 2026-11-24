@@ -1,11 +1,14 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import { useSyncState } from '../store/sync';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { useAuth } from '../auth/session';
+import { sair } from '../firebase/auth';
+import { useStoreStatus } from '../store/store';
 
 const MAIN = [
   { to: '/', label: 'Painel', end: true },
-  { to: '/registrar', label: 'Registrar partida' },
   { to: '/decks', label: 'Meus decks' },
   { to: '/colecao', label: 'Coleção' },
+  { to: '/meta', label: 'Meta' },
 ];
 const ANALYSIS = [
   { to: '/confrontos', label: 'Confrontos' },
@@ -13,28 +16,12 @@ const ANALYSIS = [
   { to: '/comparar', label: 'Comparar' },
   { to: '/relatorio', label: 'Relatório da semana' },
 ];
-const SETUP = [
-  { to: '/meta', label: 'Meta' },
-  { to: '/config', label: 'Configurações' },
-];
 
-function SyncBadge() {
-  const s = useSyncState();
-  if (s.phase === 'off') return <span className="tiny faint">Dados só neste aparelho</span>;
-  const text =
-    s.phase === 'syncing' ? s.message || 'Sincronizando…' : s.phase === 'error' ? `Erro: ${s.message}` : s.lastSync ? `Sincronizado ${s.lastSync}` : 'Nuvem ligada';
-  return (
-    <span className="tiny muted row" style={{ gap: 6 }} title={text}>
-      <span className={`sync-dot ${s.phase}`} /> {s.phase === 'error' ? 'Erro na sincronização' : text}
-    </span>
-  );
-}
-
-function Links({ items }: { items: { to: string; label: string; end?: boolean }[] }) {
+function Pills({ items }: { items: { to: string; label: string; end?: boolean }[] }) {
   return (
     <>
       {items.map((i) => (
-        <NavLink key={i.to} to={i.to} end={i.end} className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+        <NavLink key={i.to} to={i.to} end={i.end} className={({ isActive }) => `pill${isActive ? ' active' : ''}`}>
           {i.label}
         </NavLink>
       ))}
@@ -42,38 +29,83 @@ function Links({ items }: { items: { to: string; label: string; end?: boolean }[
   );
 }
 
+export function Notch() {
+  return (
+    <Link to="/" className="notch" aria-label="Deck Review — Painel">
+      <img src="./icon.svg" alt="" />
+      Deck Review
+    </Link>
+  );
+}
+
+function UserMenu() {
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const loc = useLocation();
+  useEffect(() => setOpen(false), [loc.pathname]);
+  useEffect(() => {
+    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }, []);
+  if (!user) return null;
+  const name = user.displayName || user.email?.split('@')[0] || 'Treinador';
+  return (
+    <div className="menu" ref={ref}>
+      <button className="user-btn" onClick={() => setOpen((o) => !o)} aria-haspopup="menu" aria-expanded={open}>
+        <span className="avatar">{user.photoURL ? <img src={user.photoURL} alt="" referrerPolicy="no-referrer" /> : name[0].toUpperCase()}</span>
+        <span className="user-name">{name}</span>
+      </button>
+      {open && (
+        <div className="menu-pop" role="menu">
+          <div className="who">
+            <div style={{ fontWeight: 600 }}>{name}</div>
+            <div className="tiny muted">{user.email}</div>
+          </div>
+          <Link to="/config">Configurações</Link>
+          <button onClick={() => void sair()}>Sair</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SaveStatus() {
+  const s = useStoreStatus();
+  if (s.error) return <div className="status-bar"><div className="notice err">{s.error}</div></div>;
+  return null;
+}
+
 export default function Layout() {
   return (
-    <div className="app">
-      <aside className="sidebar">
-        <div className="brand">
-          <img src="./icon.svg" alt="" /> Deck Review
+    <div className="frame">
+      <header className="hdr">
+        <div className="hdr-left">
+          <Pills items={MAIN} />
         </div>
-        <Links items={MAIN} />
-        <div className="nav-sep" />
-        <Links items={ANALYSIS} />
-        <div className="nav-sep" />
-        <Links items={SETUP} />
-        <div className="sidebar-foot">
-          <SyncBadge />
+        <Notch />
+        <div className="hdr-right">
+          <UserMenu />
+          <Link className="cta" to="/registrar">
+            Registrar partida <span className="cta-ic">↗</span>
+          </Link>
         </div>
-      </aside>
-
-      <header className="topbar">
-        <div className="topbar-row">
-          <div className="brand">
-            <img src="./icon.svg" alt="" /> Deck Review
-          </div>
-          <SyncBadge />
-        </div>
-        <nav className="tabs">
-          <Links items={[...MAIN, ...ANALYSIS, ...SETUP]} />
-        </nav>
       </header>
-
+      <nav className="subnav" aria-label="Seções">
+        <span className="subnav-label">Análises</span>
+        <span className="hdr-mobile-only" style={{ gap: 8 }}>
+          <Pills items={MAIN} />
+        </span>
+        <Pills items={ANALYSIS} />
+      </nav>
+      <SaveStatus />
       <main className="main">
         <Outlet />
       </main>
+      <Link className="cta fab" to="/registrar">
+        Registrar <span className="cta-ic">+</span>
+      </Link>
     </div>
   );
 }

@@ -12,13 +12,16 @@ O plano completo está em [`docs/plano.md`](docs/plano.md).
 
 Painel · Registrar partida · Meus decks · Coleção · Confrontos · Cartas · Comparar · Relatório da semana · Meta · Configurações
 
-## Onde ficam os dados
+## Login e dados
 
-- **No navegador** (localStorage) — funciona sem conta e sem servidor.
-- **Sincronização opcional entre aparelhos**: em *Configurações*, cole um token do GitHub com escopo `gist`.
-  O app guarda tudo em um **Gist privado** na sua conta (`deck-review-data.json`). No celular, cole o mesmo token.
-  O token fica só no aparelho; nada vai para este repositório.
-- **Backup**: *Configurações → Baixar backup (.json)*.
+- **Login** com e-mail e senha ou conta Google (Firebase Authentication), com cadastro, "esqueci minha senha" e sair.
+  Sem login, só as telas de entrada aparecem.
+- **Dados por usuário** no Cloud Firestore, em `usuarios/{uid}/...` (decks, versões, partidas, coleção, meta e preferências).
+- **Isolamento garantido pelo servidor**: as regras em [`firestore.rules`](firestore.rules) só deixam cada usuário ler e escrever o próprio `usuarios/{uid}`.
+- **Funciona sem internet**: o Firestore guarda uma cópia local e sincroniza quando a conexão volta.
+- O SDK web modular do Firebase vem do CDN oficial (gstatic), sem passar pelo pacote do site.
+
+Configuração do console do Firebase, explicação das regras e como testar: [`docs/firebase.md`](docs/firebase.md).
 
 ## Estrutura
 
@@ -28,17 +31,27 @@ Deck-Review/
 │   └── workflows/
 │       └── deploy.yml          # testes + build + publicação no GitHub Pages
 ├── docs/
+│   ├── firebase.md             # passo a passo do console, regras explicadas, testes
 │   └── plano.md                # objetivo, telas, dados, cálculos e alertas
 ├── public/
 │   ├── icon.svg
 │   └── manifest.webmanifest    # permite "Adicionar à tela inicial" no celular
 ├── src/
+│   ├── auth/
+│   │   └── session.tsx         # usuário logado + liga/desliga os dados dele
+│   ├── firebase/               # tudo que fala com o Firebase
+│   │   ├── config.ts           # firebaseConfig (público) — preencha com o do seu projeto
+│   │   ├── sdk.ts              # inicializa o SDK vindo do CDN (+ emuladores)
+│   │   ├── auth.ts             # entrar, cadastrar, Google, esqueci a senha, sair
+│   │   ├── db.ts               # leitura em tempo real e gravação em lotes
+│   │   └── diff.ts             # o que mudou entre dois estados (testado)
 │   ├── components/             # peças de interface reutilizadas
 │   │   ├── AlertList.tsx
 │   │   ├── DeckScopeBar.tsx    # escolha de deck e recorte (versão atual / deck inteiro)
 │   │   ├── DecklistInput.tsx   # caixa para colar a lista do TCG Live
 │   │   ├── DecklistView.tsx    # lista agrupada por tipo, com o que você tem
-│   │   ├── Layout.tsx          # navegação lateral (PC) e abas (celular)
+│   │   ├── Layout.tsx          # moldura, aba central com logo, navegação em pílulas
+│   │   ├── MigrationBanner.tsx # oferece importar os dados antigos do navegador
 │   │   ├── OwnershipSummary.tsx
 │   │   ├── WeeklyChart.tsx
 │   │   └── ui.tsx
@@ -51,6 +64,7 @@ Deck-Review/
 │   │   ├── meta.ts
 │   │   └── stats.ts            # taxas, faixa provável, taxa esperada, tendência
 │   ├── pages/                  # uma tela por arquivo
+│   │   ├── auth/               # entrar, criar conta, esqueci minha senha
 │   │   ├── Painel.tsx
 │   │   ├── RegistrarPartida.tsx
 │   │   ├── MeusDecks.tsx
@@ -63,17 +77,21 @@ Deck-Review/
 │   │   ├── Meta.tsx
 │   │   └── Config.tsx
 │   ├── store/                  # dados do app
-│   │   ├── store.ts            # estado + localStorage
+│   │   ├── store.ts            # estado em memória espelhando o Firestore
 │   │   ├── actions.ts          # criar deck, versão, partida, coleção…
 │   │   ├── selection.ts        # deck selecionado e recortes de partidas
-│   │   └── sync.ts             # sincronização com Gist privado
+│   │   └── legacy.ts           # dados da versão antiga (sem login) para importar
 │   ├── styles/
 │   │   └── global.css
 │   ├── types/
+│   │   ├── firebase-cdn.d.ts   # tipos para os módulos do CDN
 │   │   └── index.ts            # modelo de dados
 │   ├── App.tsx                 # rotas
 │   └── main.tsx
 ├── tests/                      # testes dos cálculos (Vitest)
+│   └── rules/                  # testes das regras do Firestore (emulador)
+├── firebase.json               # regras + emuladores
+├── firestore.rules             # Regras de Segurança do Firestore
 ├── index.html
 ├── package.json
 ├── tsconfig.json
@@ -88,6 +106,9 @@ Requer Node.js 20+.
 npm install
 npm run dev      # abre em http://localhost:5173
 npm test         # testes dos cálculos
+npm run test:regras   # testes das regras no emulador (precisa de Java 21+)
+npm run emuladores    # Auth + Firestore locais
+npm run dev:emulador  # app ligado aos emuladores
 npm run build    # gera a versão de produção em dist/
 ```
 

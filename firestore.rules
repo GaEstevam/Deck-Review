@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// Regras de Segurança do Cloud Firestore — Deck Review
+// Cada usuário só lê e escreve dentro de usuarios/{seu uid}. Todo o resto é negado.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Verdadeiro só quando há alguém logado e o {uid} do caminho é o dessa pessoa.
+    function ehDono(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // Subcoleções que o app usa. Qualquer outro nome é recusado.
+    function colecaoPermitida(nome) {
+      return nome in ['decks', 'versoes', 'partidas', 'colecao', 'config'];
+    }
+
+    // Documento raiz do usuário (perfil: nome, e-mail, último acesso).
+    match /usuarios/{uid} {
+      allow read, write: if ehDono(uid);
+
+      // Dados do app: usuarios/{uid}/{colecao}/{documento}
+      match /{colecao}/{docId} {
+        allow read: if ehDono(uid);
+        allow create, update: if ehDono(uid)
+                              && colecaoPermitida(colecao)
+                              && request.resource.data.keys().size() <= 50;
+        allow delete: if ehDono(uid);
+      }
+    }
+
+    // Qualquer caminho que não casou acima (inclusive listar todos os usuarios) fica negado,
+    // porque no Firestore o que não é permitido explicitamente é proibido.
+  }
+}

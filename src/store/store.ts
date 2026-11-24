@@ -1,7 +1,14 @@
 import { useSyncExternalStore } from 'react';
+import { diffOps } from '../firebase/diff';
 import type { AppData } from '../types';
 
-const STORAGE_KEY = 'deck-review:data';
+/**
+ * Estado do app em memória, espelhando os dados do usuário logado no Firestore.
+ * - Leitura: o Firestore avisa em tempo real (inclusive mudanças feitas em outro aparelho).
+ * - Escrita: `update()` muda o estado na hora e grava no Firestore só o que mudou.
+ * O acesso ao Firestore é injetado por `bindUser` (ver src/auth/session.ts), o que mantém
+ * este arquivo sem dependência do SDK e fácil de testar.
+ */
 
 export function emptyData(): AppData {
   return {
@@ -39,28 +46,28 @@ export function normalizeData(raw: unknown): AppData {
   };
 }
 
-function load(): AppData {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? normalizeData(JSON.parse(raw)) : emptyData();
-  } catch {
-    return emptyData();
-  }
+// ---------- Estado ----------
+
+export interface StoreStatus {
+  phase: 'idle' | 'loading' | 'ready' | 'error';
+  saving: number; // gravações aguardando confirmação do servidor
+  error: string | null;
 }
 
-let state: AppData = load();
+export type Writer = (prev: AppData, next: AppData) => Promise<void>;
+
+let state: AppData = emptyData();
+let status: StoreStatus = { phase: 'idle', saving: 0, error: null };
+let writer: Writer | null = null;
 const listeners = new Set<() => void>();
-
-function persist() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (e) {
-    console.error('Falha ao salvar no navegador', e);
-  }
-}
+const statusListeners = new Set<() => void>();
 
 function emit() {
   for (const l of listeners) l();
+}
+function setStatus(patch: Partial<StoreStatus>) {
+  status = { ...status, ...patch };
+  for (const l of statusListeners) l();
 }
 
 export function getData(): AppData {
@@ -72,23 +79,73 @@ export function subscribe(listener: () => void): () => void {
   return () => listeners.delete(listener);
 }
 
-/** Aplica uma alteração (pode mutar o rascunho) e salva. */
+export function useData(): AppData {
+  return useSyncExternalStore(subscribe, getData);
+}
+
+export function useStoreStatus(): StoreStatus {
+  return useSyncExternalStore(
+    (l) => {
+      statusListeners.add(l);
+      return () => statusListeners.delete(l);
+    },
+    () => status,
+  );
+}
+
+// ---------- Ligação com o usuário logado ----------
+
+/** Começa a sessão de um usuário: estado vazio, carregando, e define quem grava. */
+export function startSession(w: Writer): void {
+  writer = w;
+  state = emptyData();
+  setStatus({ phase: 'loading', saving: 0, error: null });
+  emit();
+}
+
+/** Termina a sessão (logout): apaga o estado da memória. */
+export function endSession(): void {
+  writer = null;
+  state = emptyData();
+  setStatus({ phase: 'idle', saving: 0, error: null });
+  emit();
+}
+
+/** Chamado quando chega uma parte dos dados do Firestore. */
+export function applyRemote(patch: Partial<AppData>, ready: boolean): void {
+  state = { ...state, ...patch };
+  if (ready && status.phase === 'loading') setStatus({ phase: 'ready' });
+  emit();
+}
+
+export function setStoreError(message: string): void {
+  setStatus({ phase: status.phase === 'loading' ? 'error' : status.phase, error: message });
+}
+
+// ---------- Escrita ----------
+
+function persist(prev: AppData, next: AppData) {
+  if (!writer || diffOps(prev, next).length === 0) return;
+  setStatus({ saving: status.saving + 1 });
+  writer(prev, next)
+    .then(() => setStatus({ error: null }))
+    .catch((e: Error) => setStatus({ error: `Não foi possível salvar: ${e.message}` }))
+    .finally(() => setStatus({ saving: Math.max(0, status.saving - 1) }));
+}
+
+/** Aplica uma alteração (pode mutar o rascunho), mostra na hora e grava no Firestore. */
 export function update(mutate: (draft: AppData) => void): void {
+  if (!writer) return;
+  const prev = state;
   const draft = structuredClone(state);
   mutate(draft);
   draft.updatedAt = new Date().toISOString();
   state = draft;
-  persist();
   emit();
+  persist(prev, draft);
 }
 
-/** Substitui tudo (importação ou dados vindos da nuvem). Mantém o updatedAt recebido. */
+/** Substitui tudo (importação de backup ou dos dados antigos deste aparelho). */
 export function replaceData(data: AppData): void {
-  state = normalizeData(data);
-  persist();
-  emit();
-}
-
-export function useData(): AppData {
-  return useSyncExternalStore(subscribe, getData);
+  update((d) => Object.assign(d, normalizeData(data)));
 }

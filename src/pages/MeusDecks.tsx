@@ -96,7 +96,7 @@ export default function MeusDecks() {
           const curRec = record(matches.filter((m) => m.versionId === current?.id));
           const own = current ? checkDeck(current.cards, data.collection) : null;
           return (
-            <Link key={d.id} to={`/decks/${d.id}`} className="card" style={{ color: 'inherit', textDecoration: 'none', marginTop: 0 }}>
+            <Link key={d.id} to={`/decks/${d.id}`} className="card deck-tile">
               <div className="row between">
                 <h2>{d.name}</h2>
                 <span className={`badge ${d.status === 'principal' ? 'accent' : ''}`}>{STATUS_LABEL[d.status]}</span>
