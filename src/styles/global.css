@@ -96,7 +96,8 @@ p { margin: 0; }
 .notch:hover { text-decoration: none; }
 .notch::before, .notch::after {
   content: ''; position: absolute; top: 0; width: 26px; height: 26px;
-  background: radial-gradient(circle at 0 100%, transparent 25px, #fff 26px);
+  /* canto côncavo: branco colado no topo e na lateral da aba, com o recorte curvo para fora */
+  background: radial-gradient(circle at 100% 100%, transparent 25.5px, #fff 26px);
 }
 .notch::before { left: -26px; transform: scaleX(-1); }
 .notch::after { right: -26px; }
