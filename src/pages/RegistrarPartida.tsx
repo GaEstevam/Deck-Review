@@ -1,12 +1,13 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import BattleLogImport from '../components/BattleLogImport';
 import { Empty, PageHead, Seg, Toast, useToast } from '../components/ui';
 import { END_REASON_LABEL, suggestOpponentDeck, type BattleLogInfo } from '../lib/battleLog';
-import { uniqueNames } from '../lib/decklist';
+import { normalize, uniqueNames } from '../lib/decklist';
 import { fmtDate, today } from '../lib/format';
 import { LOSS_REASONS, lossReasonLabel, VENUE_LABEL } from '../lib/labels';
 import { matchResult, sortMatches } from '../lib/stats';
-import { addMatch, deleteMatch } from '../store/actions';
+import { addMatch, deleteMatch, updateMatch } from '../store/actions';
 import { deckVersions, versionLabel } from '../store/selection';
 import { useData } from '../store/store';
 import type { CardMark, GameResult, LossReason, Match, Turn, Venue } from '../types';
@@ -84,31 +85,59 @@ function LogSummary({ entry, game, onClear }: { entry: LogEntry; game: GameDraft
   );
 }
 
-export default function RegistrarPartida() {
+/** Rota /partidas/:id — abre o formulário em modo edição (key garante estado novo por partida). */
+export function EditarPartida() {
+  const { id } = useParams();
+  return <RegistrarPartida key={id} editId={id} />;
+}
+
+function gamesFrom(m: Match | undefined): GameDraft[] {
+  const gs = blankGames();
+  m?.games.slice(0, 3).forEach((g, i) => (gs[i] = { result: g.result, turn: g.turn }));
+  return gs;
+}
+
+export default function RegistrarPartida({ editId }: { editId?: string } = {}) {
   const data = useData();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [toast, showToast] = useToast();
-  const activeDecks = data.decks.filter((d) => d.status !== 'arquivado');
+  const editing = editId ? data.matches.find((m) => m.id === editId) : undefined;
+  // na edição, o deck da partida aparece mesmo se estiver arquivado
+  const activeDecks = data.decks.filter((d) => d.status !== 'arquivado' || d.id === editing?.deckId);
   const defaultDeck =
     activeDecks.find((d) => d.id === data.settings.lastDeckId) ??
     activeDecks.find((d) => d.id === data.settings.selectedDeckId) ??
     activeDecks[0];
 
-  const [deckId, setDeckId] = useState(defaultDeck?.id ?? '');
+  const [deckId, setDeckId] = useState(editing?.deckId ?? defaultDeck?.id ?? '');
   const deck = data.decks.find((d) => d.id === deckId);
   const versions = deckVersions(data, deckId);
-  const [versionId, setVersionId] = useState(deck?.currentVersionId ?? '');
+  const [versionId, setVersionId] = useState(editing?.versionId ?? deck?.currentVersionId ?? '');
   const version = versions.find((v) => v.id === versionId) ?? versions.find((v) => v.id === deck?.currentVersionId) ?? versions[0];
 
-  const [date, setDate] = useState(today());
-  const [opponent, setOpponent] = useState('');
-  const [games, setGames] = useState<GameDraft[]>(blankGames);
-  const [venue, setVenue] = useState<Venue>('online');
-  const [timeout, setTimeoutFlag] = useState(false);
-  const [lossReason, setLossReason] = useState<LossReason | null>(null);
-  const [marks, setMarks] = useState<Record<string, CardMark>>({});
-  const [note, setNote] = useState('');
+  const [date, setDate] = useState(editing?.date ?? today());
+  const [opponent, setOpponent] = useState(editing?.opponent ?? '');
+  const [games, setGames] = useState<GameDraft[]>(() => gamesFrom(editing));
+  const [venue, setVenue] = useState<Venue>(editing?.venue ?? 'online');
+  const [timeout, setTimeoutFlag] = useState(editing?.timeout ?? false);
+  const [lossReason, setLossReason] = useState<LossReason | null>(editing?.lossReason ?? null);
+  const [marks, setMarks] = useState<Record<string, CardMark>>(() => Object.fromEntries((editing?.cards ?? []).map((c) => [c.name, c.mark])));
+  const [note, setNote] = useState(editing?.note ?? '');
   const [error, setError] = useState('');
   const [logs, setLogs] = useState<(LogEntry | null)[]>([null, null, null]);
+  const [showAll, setShowAll] = useState(false);
+  const [filter, setFilter] = useState('');
+
+  // aviso vindo da edição ("Partida atualizada") ao voltar para esta tela
+  const flash = (location.state as { toast?: string } | null)?.toast;
+  useEffect(() => {
+    if (flash) {
+      showToast(flash);
+      navigate(location.pathname, { replace: true, state: null });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flash]);
 
   const opponents = useMemo(() => {
     const set = new Map<string, string>();
@@ -121,6 +150,15 @@ export default function RegistrarPartida() {
   const preview: GameResult | null = played.length
     ? matchResult({ games: played } as Match)
     : null;
+
+  if (editId && !editing) {
+    return (
+      <>
+        <PageHead title="Editar partida" />
+        <Empty title="Partida não encontrada" text="Ela pode ter sido apagada." to="/registrar" action="Voltar para as partidas" />
+      </>
+    );
+  }
 
   if (!deck || !version) {
     return (
@@ -168,7 +206,7 @@ export default function RegistrarPartida() {
     if (!opponent.trim()) return setError('Informe o deck do oponente.');
     if (!played.length) return setError('Marque o resultado de pelo menos um jogo.');
     setError('');
-    addMatch({
+    const fields = {
       date,
       deckId: deck.id,
       versionId: version.id,
@@ -179,7 +217,13 @@ export default function RegistrarPartida() {
       lossReason: preview === 'D' ? lossReason : null,
       cards: Object.entries(marks).map(([name, mark]) => ({ name, mark })),
       note: note.trim(),
-    });
+    };
+    if (editing) {
+      updateMatch(editing.id, fields);
+      navigate('/registrar', { state: { toast: 'Partida atualizada' } });
+      return;
+    }
+    addMatch(fields);
     setOpponent('');
     setGames(blankGames());
     setTimeoutFlag(false);
@@ -190,11 +234,25 @@ export default function RegistrarPartida() {
     showToast('Partida registrada');
   };
 
-  const recent = sortMatches(data.matches).reverse().slice(0, 15);
+  const all = sortMatches(data.matches).reverse();
+  const nf = normalize(filter);
+  const recent = showAll
+    ? all.filter((m) => !nf || normalize(`${m.opponent} ${versionLabel(data, m.versionId)} ${fmtDate(m.date)} ${m.note}`).includes(nf))
+    : all.slice(0, 15);
+  // cartas da versão + as que já estavam marcadas (para poder desmarcar mesmo se saíram da lista)
+  const markNames = [...new Set([...uniqueNames(version.cards), ...Object.keys(marks)])];
 
   return (
     <>
-      <PageHead title="Registrar partida" subtitle="Menos de 1 minuto: resultado, motivo e cartas que decidiram." />
+      {editing ? (
+        <PageHead title="Editar partida" subtitle={`${fmtDate(editing.date)} · vs ${editing.opponent} · ${versionLabel(data, editing.versionId)}`}>
+          <Link className="btn" to="/registrar">
+            Cancelar
+          </Link>
+        </PageHead>
+      ) : (
+        <PageHead title="Registrar partida" subtitle="Menos de 1 minuto: resultado, motivo e cartas que decidiram." />
+      )}
 
       <div className="card stack">
         <div className="field-row">
@@ -325,7 +383,7 @@ export default function RegistrarPartida() {
             Toque uma vez = <span className="good">grande</span>, duas = <span className="bad">inútil</span>, três = limpar.
           </p>
           <div className="chips">
-            {uniqueNames(version.cards).map((name) => (
+            {markNames.map((name) => (
               <button type="button" key={name} className={`chip ${marks[name] ?? ''}`} onClick={() => cycleMark(name)}>
                 {marks[name] === 'grande' ? '★ ' : marks[name] === 'inutil' ? '✗ ' : ''}
                 {name}
@@ -342,17 +400,34 @@ export default function RegistrarPartida() {
         {error && <div className="notice err">{error}</div>}
         <div className="row">
           <button className="primary" onClick={save}>
-            Salvar partida
+            {editing ? 'Salvar alterações' : 'Salvar partida'}
           </button>
+          {editing && (
+            <Link className="btn" to="/registrar">
+              Cancelar
+            </Link>
+          )}
         </div>
       </div>
 
+      {!editing && (
       <div className="card section">
         <div className="card-head">
-          <h2>Últimas partidas</h2>
+          <h2>{showAll ? `Todas as partidas (${all.length})` : 'Últimas partidas'}</h2>
+          <div className="row">
+            {showAll && (
+              <input style={{ width: 220 }} value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Buscar oponente, deck, data…" aria-label="Buscar partida" />
+            )}
+            {all.length > 15 && (
+              <button className="sm" onClick={() => { setShowAll((s) => !s); setFilter(''); }}>
+                {showAll ? 'Mostrar só as últimas' : `Ver todas (${all.length})`}
+              </button>
+            )}
+          </div>
         </div>
+        <p className="tiny muted" style={{ marginTop: -6, marginBottom: 8 }}>Toque em ✎ para editar uma partida.</p>
         {recent.length === 0 ? (
-          <p className="muted small">Nenhuma partida ainda.</p>
+          <p className="muted small">{all.length ? 'Nenhuma partida encontrada.' : 'Nenhuma partida ainda.'}</p>
         ) : (
           <div className="table-wrap">
             <table>
@@ -385,7 +460,10 @@ export default function RegistrarPartida() {
                         </span>
                       </td>
                       <td className="small muted">{r === 'D' ? lossReasonLabel(m.lossReason) : ''}</td>
-                      <td className="r">
+                      <td className="r" style={{ whiteSpace: 'nowrap' }}>
+                        <Link className="btn ghost-link" to={`/partidas/${m.id}`} title="Editar partida" aria-label={`Editar partida contra ${m.opponent}`}>
+                          ✎
+                        </Link>
                         <button
                           className="ghost sm"
                           title="Apagar partida"
@@ -402,6 +480,7 @@ export default function RegistrarPartida() {
           </div>
         )}
       </div>
+      )}
       <Toast msg={toast} />
     </>
   );

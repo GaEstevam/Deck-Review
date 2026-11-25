@@ -12,7 +12,7 @@ import DeckDetalhe from './pages/DeckDetalhe';
 import Meta from './pages/Meta';
 import MeusDecks from './pages/MeusDecks';
 import Painel from './pages/Painel';
-import RegistrarPartida from './pages/RegistrarPartida';
+import RegistrarPartida, { EditarPartida } from './pages/RegistrarPartida';
 import Relatorio from './pages/Relatorio';
 import { useStoreStatus } from './store/store';
 
@@ -63,7 +63,8 @@ function RotasDoApp() {
         ) : (
           <>
             <Route index element={<Painel />} />
-            <Route path="registrar" element={<RegistrarPartida />} />
+            <Route path="registrar" element={<RegistrarPartida key="nova" />} />
+            <Route path="partidas/:id" element={<EditarPartida />} />
             <Route path="decks" element={<MeusDecks />} />
             <Route path="decks/:id" element={<DeckDetalhe />} />
             <Route path="colecao" element={<Colecao />} />

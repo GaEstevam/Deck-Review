@@ -407,3 +407,5 @@ details[open] > summary { margin-bottom: 10px; }
   flex-basis: 100%; background: var(--surface-2); border-radius: 14px; padding: 10px 12px;
   border-left: 3px solid var(--accent);
 }
+.btn.ghost-link { background: transparent; border-color: transparent; color: var(--muted); padding: 5px 9px; font-size: 14px; }
+.btn.ghost-link:hover { background: var(--surface-2); color: var(--text); }

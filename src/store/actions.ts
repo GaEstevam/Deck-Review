@@ -89,6 +89,13 @@ export function addMatch(match: Omit<Match, 'id' | 'createdAt'>): void {
   });
 }
 
+export function updateMatch(id: string, patch: Omit<Match, 'id' | 'createdAt'>): void {
+  update((d) => {
+    const m = d.matches.find((x) => x.id === id);
+    if (m) Object.assign(m, patch); // mantém id e createdAt (ordem entre partidas do mesmo dia)
+  });
+}
+
 export function deleteMatch(id: string): void {
   update((d) => {
     d.matches = d.matches.filter((m) => m.id !== id);
