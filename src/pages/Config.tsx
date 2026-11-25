@@ -140,6 +140,17 @@ export default function Config() {
             <input type="date" value={s.eventDate} onChange={(e) => e.target.value && setSettings({ eventDate: e.target.value })} />
           </label>
         </div>
+        <div className="card stack">
+          <h2>Pokémon TCG Live</h2>
+          <label>
+            Seu nome no TCG Live
+            <input value={s.playerName} onChange={(e) => setSettings({ playerName: e.target.value })} placeholder="Como aparece no Battle Log" />
+          </label>
+          <p className="small muted">
+            Usado ao colar um Battle Log em Registrar partida, para saber qual dos dois jogadores é você. Se ficar vazio, o app pergunta na
+            primeira vez.
+          </p>
+        </div>
         <AccountCard />
         <BackupCard />
         <LegacyCard />

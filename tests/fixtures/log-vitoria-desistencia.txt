@@ -1,0 +1,225 @@
+Preparação
+Rival_3 escolheu coroa para a jogada inicial de moeda.
+Rival_3 venceu a jogada de moeda.
+Rival_3 decidiu ser o segundo a jogar.
+Rival_3 comprou 7 cartas para a mão inicial.
+- 7 cartas compradas.
+Treinador_1 comprou 7 cartas para a mão inicial.
+- 7 cartas compradas.
+   • Energia Escuridão básica, Drakloak, Poké Tablet, Maca Noturna, Poffin de Colega, Dreepy, Budew
+Rival_3 jogou Fezandipiti ex no Campo Ativo.
+Treinador_1 jogou Budew no Campo Ativo.
+Treinador_1 jogou Dreepy no Banco.
+
+Turno de Treinador_1
+Treinador_1 comprou Energia Fogo Básica.
+Treinador_1 ligou Energia Fogo Básica a Dreepy no Banco.
+Treinador_1 jogou Poffin de Colega.
+- Treinador_1 comprou 2 cartas e as jogou no Banco.
+   • Dunsparce, Dreepy
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 encerrou seu turno.
+
+Turno de Rival_3
+Rival_3 comprou uma carta.
+Rival_3 jogou Duskull no Banco.
+Rival_3 jogou Bola de Penumbra.
+- Rival_3 comprou Meowth ex.
+- Rival_3 embaralhou o próprio baralho.
+Rival_3 jogou Meowth ex no Banco.
+Meowth ex de Rival_3 usou Chance Final de Captura.
+- Rival_3 comprou Cyrano.
+- Rival_3 embaralhou o próprio baralho.
+Rival_3 jogou Cyrano.
+- Rival_3 comprou 3 cartas.
+   • Latias ex, Mega Kangaskhan ex, Talonflame ex
+- Rival_3 embaralhou o próprio baralho.
+Rival_3 jogou Mega Kangaskhan ex no Banco.
+Rival_3 jogou Latias ex no Banco.
+Rival_3 recuou Fezandipiti ex para o Banco.
+Mega Kangaskhan ex de Rival_3 agora está no Campo Ativo.
+Mega Kangaskhan ex de Rival_3 usou Faz Teu Corre.
+- Rival_3 comprou 2 cartas.
+Rival_3 jogou Talonflame ex no Banco.
+Rival_3 ligou Energia de Ignição a Talonflame ex no Banco.
+Rival_3 jogou Pegador Superior.
+- Dreepy de Treinador_1 foi trocado por Budew de Treinador_1 para se tonar o Pokémon Ativo.
+- Talonflame ex de Rival_3 foi trocado por Mega Kangaskhan ex de Rival_3 para se tonar o Pokémon Ativo.
+Dreepy de Treinador_1 agora está no Campo Ativo.
+Talonflame ex de Rival_3 agora está no Campo Ativo.
+Talonflame ex de Rival_3 usou Grifas de Caça em Dreepy de Treinador_1 para causar 150 pontos de dano.
+- Rival_3 comprou 2 cartas.
+- Rival_3 embaralhou o próprio baralho.
+Dreepy de Treinador_1 foi Nocauteado!
+Energia Fogo Básica foi descartada de Dreepy de Treinador_1.
+Rival_3 pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de Rival_3.
+Budew de Treinador_1 agora está no Campo Ativo.
+Energia de Ignição foi ativada.
+- Energia de Ignição foi descartada de Talonflame ex de Rival_3.
+
+Turno de Treinador_1
+Treinador_1 comprou Plínio.
+Treinador_1 evoluiu Dreepy para Drakloak no Banco.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Carimbo da Injustiça.
+Treinador_1 jogou Poké Tablet.
+- Treinador_1 comprou Dudunsparce.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Dunsparce para Dudunsparce no Banco.
+Treinador_1 jogou Carimbo da Injustiça.
+- Treinador_1 embaralhou 3 cartas no baralho dele.
+   • Energia Escuridão básica, Maca Noturna, Plínio
+- Rival_3 embaralhou 8 cartas no baralho dele.
+- Treinador_1 comprou 5 cartas.
+   • Martelo Esmagador, Plínio, Maca Noturna, Energia Psíquico Básica, Munkidori
+- Rival_3 comprou 2 cartas.
+Treinador_1 ligou Energia Psíquico Básica a Drakloak no Banco.
+Treinador_1 jogou Munkidori no Banco.
+Treinador_1 jogou Dudunsparce.
+- Treinador_1 comprou 3 cartas.
+   • Determinação da Lílian, Meowth ex, Fezandipiti ex
+- Treinador_1 embaralhou 2 cartas no baralho dele.
+   • Dudunsparce, Dunsparce
+Treinador_1 jogou Fezandipiti ex no Banco.
+Fezandipiti ex de Treinador_1 usou Sair do Roteiro.
+- Treinador_1 comprou 3 cartas.
+   • Ultra Bola, Poffin de Colega, Drakloak
+Treinador_1 jogou Poffin de Colega.
+- Treinador_1 comprou 2 cartas e as jogou no Banco.
+   • Dreepy, Dunsparce
+- Treinador_1 embaralhou o próprio baralho.
+Budew de Treinador_1 usou Comichão de Pólen em Talonflame ex de Rival_3 para causar 10 pontos de dano.
+
+Turno de Rival_3
+Rival_3 comprou uma carta.
+Rival_3 ligou Energia de Ignição a Talonflame ex no Campo Ativo.
+Talonflame ex de Rival_3 usou Grifas de Caça em Budew de Treinador_1 para causar 150 pontos de dano.
+- Rival_3 comprou 2 cartas.
+- Rival_3 embaralhou o próprio baralho.
+Budew de Treinador_1 foi Nocauteado!
+Rival_3 pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de Rival_3.
+Drakloak de Treinador_1 agora está no Campo Ativo.
+Energia de Ignição foi ativada.
+- Energia de Ignição foi descartada de Talonflame ex de Rival_3.
+
+Turno de Treinador_1
+Treinador_1 comprou Poffin de Colega.
+Treinador_1 evoluiu Dreepy para Drakloak no Banco.
+Fezandipiti ex de Treinador_1 usou Sair do Roteiro.
+- Treinador_1 comprou 3 cartas.
+   • Maca Noturna, Energia Fogo Básica, Munkidori
+Treinador_1 jogou Munkidori no Banco.
+Treinador_1 ligou Energia Fogo Básica a Drakloak no Campo Ativo.
+Treinador_1 jogou Ultra Bola.
+- Treinador_1 descartou 2 cartas.
+   • Martelo Esmagador, Meowth ex
+- Treinador_1 comprou Dragapult ex.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Drakloak para Dragapult ex no Campo Ativo.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Energia Fogo Básica.
+Treinador_1 jogou Plínio.
+- Treinador_1 comprou Energia Psíquico Básica.
+- Treinador_1 ligou Energia Escuridão básica a Munkidori no Banco.
+- Treinador_1 embaralhou o próprio baralho.
+Dragapult ex de Treinador_1 usou Mergulho Fantasma em Talonflame ex de Rival_3 para causar 200 pontos de dano.
+- Treinador_1 colocou 6 contadores de dano em Duskull de Treinador_1.
+Duskull de Rival_3 foi Nocauteado!
+Treinador_1 pegou uma carta de Prêmio.
+Encorajamento da Rose foi adicionada à mão de Treinador_1.
+
+Turno de Rival_3
+Rival_3 comprou uma carta.
+Fezandipiti ex de Rival_3 usou Sair do Roteiro.
+- Rival_3 comprou 3 cartas.
+Rival_3 ligou Energia de Ignição a Talonflame ex no Campo Ativo.
+Rival_3 jogou Duskull no Banco.
+Talonflame ex de Rival_3 usou Grifas de Caça em Dragapult ex de Treinador_1 para causar 150 pontos de dano.
+- Rival_3 comprou 2 cartas.
+- Rival_3 embaralhou o próprio baralho.
+Energia de Ignição foi ativada.
+- Energia de Ignição foi descartada de Talonflame ex de Rival_3.
+
+Turno de Treinador_1
+Treinador_1 comprou Maca Noturna.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Ordem da Chefia.
+Treinador_1 ligou Energia Psíquico Básica a Drakloak no Banco.
+Munkidori de Treinador_1 usou Adrena-cérebro.
+- Treinador_1 moveu 3 de contadores de dano de Dragapult ex de Treinador_1 para Duskull de Treinador_1.
+Dragapult ex de Treinador_1 usou Mergulho Fantasma em Talonflame ex de Rival_3 para causar 200 pontos de dano.
+- Treinador_1 colocou um contador de dano em Latias ex de Treinador_1.
+- Treinador_1 colocou um contador de dano em Fezandipiti ex de Treinador_1.
+- Treinador_1 colocou um contador de dano em Mega Kangaskhan ex de Treinador_1.
+- Treinador_1 colocou 3 contadores de dano em Duskull de Treinador_1.
+Talonflame ex de Rival_3 foi Nocauteado!
+Duskull de Rival_3 foi Nocauteado!
+Treinador_1 pegou 3 cartas de Prêmio.
+Energia Psíquico Básica foi adicionada à mão de Treinador_1.
+Martelo Esmagador foi adicionada à mão de Treinador_1.
+Ruínas Arriscadas foi adicionada à mão de Treinador_1.
+Mega Kangaskhan ex de Rival_3 agora está no Campo Ativo.
+
+Turno de Rival_3
+Rival_3 comprou uma carta.
+Rival_3 jogou Talonflame ex no Banco.
+Rival_3 ligou Energia de Ignição a Talonflame ex no Banco.
+Rival_3 jogou Poffin de Colega.
+- Rival_3 embaralhou o próprio baralho.
+Mega Kangaskhan ex de Rival_3 usou Faz Teu Corre.
+- Rival_3 comprou 2 cartas.
+Fezandipiti ex de Rival_3 usou Sair do Roteiro.
+- Rival_3 comprou 3 cartas.
+Rival_3 recuou Mega Kangaskhan ex para o Banco.
+Talonflame ex de Rival_3 agora está no Campo Ativo.
+Rival_3 jogou Juiz.
+- Rival_3 embaralhou 11 cartas no baralho dele.
+- Treinador_1 embaralhou 11 cartas no baralho dele.
+   • Maca Noturna, Determinação da Lílian, Poffin de Colega, Maca Noturna, Energia Fogo Básica, Encorajamento da Rose, Maca Noturna, Ordem da Chefia, Energia Psíquico Básica, Martelo Esmagador, Ruínas Arriscadas
+- Rival_3 comprou 4 cartas.
+- Treinador_1 comprou 4 cartas.
+   • Ruínas Arriscadas, Ultra Bola, Ultra Bola, Energia Escuridão básica
+Talonflame ex de Rival_3 usou Grifas de Caça em Dragapult ex de Treinador_1 para causar 150 pontos de dano.
+- Rival_3 comprou 2 cartas.
+- Rival_3 embaralhou o próprio baralho.
+Energia de Ignição foi ativada.
+- Energia de Ignição foi descartada de Talonflame ex de Rival_3.
+
+Turno de Treinador_1
+Treinador_1 comprou Ruínas Arriscadas.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Maca Noturna.
+Treinador_1 ligou Energia Escuridão básica a Munkidori no Banco.
+Treinador_1 jogou Ultra Bola.
+- Treinador_1 descartou 2 cartas.
+   • Ruínas Arriscadas, Ruínas Arriscadas
+- Treinador_1 comprou Dudunsparce.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Dunsparce para Dudunsparce no Banco.
+Treinador_1 jogou Dudunsparce.
+- Treinador_1 comprou 3 cartas.
+   • Energia Fogo Básica, Plínio, Cartão Vermelho Especial
+- Treinador_1 embaralhou 2 cartas no baralho dele.
+   • Dudunsparce, Dunsparce
+Munkidori de Treinador_1 usou Adrena-cérebro.
+- Treinador_1 moveu 3 de contadores de dano de Dragapult ex de Treinador_1 para Talonflame ex de Treinador_1.
+Munkidori de Treinador_1 usou Adrena-cérebro.
+- Treinador_1 moveu 3 de contadores de dano de Dragapult ex de Treinador_1 para Talonflame ex de Treinador_1.
+Treinador_1 jogou Plínio.
+- Treinador_1 comprou Energia Escuridão básica.
+- Treinador_1 ligou Energia Psíquico Básica a Munkidori no Banco.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 jogou Ultra Bola.
+- Treinador_1 descartou 2 cartas.
+   • Cartão Vermelho Especial, Energia Escuridão básica
+- Treinador_1 comprou Dragapult ex.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Drakloak para Dragapult ex no Banco.
+Dragapult ex de Treinador_1 usou Mergulho Fantasma em Talonflame ex de Rival_3 para causar 200 pontos de dano.
+- Treinador_1 colocou 6 contadores de dano em Meowth ex de Treinador_1.
+
+Turno de Rival_3
+Rival_3 comprou uma carta.
+O oponente se rendeu. Treinador_1 venceu.

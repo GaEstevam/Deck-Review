@@ -401,3 +401,9 @@ details[open] > summary { margin-bottom: 10px; }
   .auth-hero .float-chip, .type-tiles { display: none; }
   .auth-panel { padding: 28px 18px 40px; align-items: flex-start; }
 }
+
+/* ---------- Battle Log (Registrar partida) ---------- */
+.log-panel {
+  flex-basis: 100%; background: var(--surface-2); border-radius: 14px; padding: 10px 12px;
+  border-left: 3px solid var(--accent);
+}

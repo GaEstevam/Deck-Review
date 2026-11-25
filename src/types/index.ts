@@ -93,6 +93,8 @@ export interface Settings {
   selectedDeckId: string | null;
   scope: Scope;
   lastDeckId: string | null;
+  /** Seu nome no Pokémon TCG Live (para saber qual lado do Battle Log é você). */
+  playerName: string;
 }
 
 export interface AppData {

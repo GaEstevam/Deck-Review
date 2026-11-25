@@ -24,6 +24,7 @@ export function emptyData(): AppData {
       selectedDeckId: null,
       scope: 'versao',
       lastDeckId: null,
+      playerName: '',
     },
     updatedAt: new Date(0).toISOString(),
   };

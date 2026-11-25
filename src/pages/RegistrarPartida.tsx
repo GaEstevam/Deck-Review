@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
+import BattleLogImport from '../components/BattleLogImport';
 import { Empty, PageHead, Seg, Toast, useToast } from '../components/ui';
+import { END_REASON_LABEL, suggestOpponentDeck, type BattleLogInfo } from '../lib/battleLog';
 import { uniqueNames } from '../lib/decklist';
 import { fmtDate, today } from '../lib/format';
 import { LOSS_REASONS, lossReasonLabel, VENUE_LABEL } from '../lib/labels';
@@ -21,6 +23,66 @@ const blankGames = (): GameDraft[] => [
 ];
 
 const RESULT_TONE = (v: GameResult) => (v === 'V' ? 'on-v' : v === 'D' ? 'on-d' : 'on-e');
+
+/** O que um Battle Log disse sobre um jogo (só os dados, sem o texto). */
+interface LogEntry {
+  info: BattleLogInfo;
+  me: string;
+  rival: string | null;
+  result: GameResult | null;
+  turn: Turn | null;
+  suggested: string | null;
+}
+
+const RESULT_WORD: Record<GameResult, string> = { V: 'vitória', D: 'derrota', E: 'empate' };
+
+function LogSummary({ entry, game, onClear }: { entry: LogEntry; game: GameDraft; onClear: () => void }) {
+  const { info, me, rival } = entry;
+  const parts: string[] = [];
+  if (entry.result) parts.push(`${entry.result === 'V' ? 'você venceu' : `${rival ?? 'o oponente'} venceu`}${info.endReason ? ` (${END_REASON_LABEL[info.endReason]})` : ''}`);
+  else parts.push('vencedor não encontrado no log');
+  if (entry.turn) parts.push(`você começou em ${entry.turn}º`);
+  if (info.turns) parts.push(`${info.turns} turnos`);
+  if (rival && (info.prizes[me] !== undefined || info.prizes[rival] !== undefined)) parts.push(`prêmios ${info.prizes[me] ?? 0} × ${info.prizes[rival] ?? 0}`);
+  if (info.mulligans[me]) parts.push(`${info.mulligans[me]} mulligan${info.mulligans[me] > 1 ? 's' : ''} seu${info.mulligans[me] > 1 ? 's' : ''}`);
+  const rivalMons = rival ? (info.pokemon[rival] ?? []) : [];
+
+  const warnings: string[] = [];
+  if (entry.result && game.result && game.result !== entry.result)
+    warnings.push(`O log indica ${RESULT_WORD[entry.result]}, mas está marcado ${RESULT_WORD[game.result]}.`);
+  if (entry.turn && game.turn && game.turn !== entry.turn) warnings.push(`O log indica que você começou em ${entry.turn}º.`);
+
+  return (
+    <div className="log-panel">
+      <div className="row between" style={{ alignItems: 'flex-start' }}>
+        <div className="small">
+          <b>Log lido</b> <span className="muted">· {me} vs {rival ?? '?'} · {info.lines} linhas</span>
+          <div style={{ marginTop: 2 }}>{parts.join(' · ')}</div>
+          {rivalMons.length > 0 && (
+            <div className="tiny muted" style={{ marginTop: 2 }}>
+              Oponente jogou: {rivalMons.slice(0, 8).join(', ')}
+              {rivalMons.length > 8 ? '…' : ''}
+              {entry.suggested && (
+                <>
+                  {' '}
+                  → deck sugerido: <b>{entry.suggested}</b>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+        <button type="button" className="ghost sm" onClick={onClear} aria-label="Fechar resumo do log">
+          ✕
+        </button>
+      </div>
+      {warnings.map((w) => (
+        <div key={w} className="notice" style={{ marginTop: 8 }}>
+          ⚠ {w} Pode salvar assim mesmo se estiver certo.
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function RegistrarPartida() {
   const data = useData();
@@ -46,6 +108,7 @@ export default function RegistrarPartida() {
   const [marks, setMarks] = useState<Record<string, CardMark>>({});
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
+  const [logs, setLogs] = useState<(LogEntry | null)[]>([null, null, null]);
 
   const opponents = useMemo(() => {
     const set = new Map<string, string>();
@@ -78,6 +141,20 @@ export default function RegistrarPartida() {
   const setGame = (i: number, patch: Partial<GameDraft>) =>
     setGames((gs) => gs.map((g, j) => (j === i ? { ...g, ...patch } : g)));
 
+  /** Preenche um jogo com o que o Battle Log diz; o texto do log já foi descartado. */
+  const applyLog = (i: number, info: BattleLogInfo, me: string) => {
+    const result: GameResult | null = info.winner ? (info.winner === me ? 'V' : 'D') : null;
+    const turn: Turn | null = info.firstPlayer ? (info.firstPlayer === me ? 1 : 2) : null;
+    setGames((gs) => gs.map((g, j) => (j === i ? { result: result ?? g.result, turn: turn ?? g.turn } : g)));
+    const rival = info.players?.find((p) => p !== me) ?? null;
+    let suggested: string | null = null;
+    if (rival && !opponent.trim()) {
+      suggested = suggestOpponentDeck(info.pokemon[rival] ?? [], opponents);
+      if (suggested) setOpponent(suggested);
+    }
+    setLogs((ls) => ls.map((x, j) => (j === i ? { info, me, rival, result, turn, suggested } : x)));
+  };
+
   const cycleMark = (name: string) =>
     setMarks((m) => {
       const next = { ...m };
@@ -109,6 +186,7 @@ export default function RegistrarPartida() {
     setLossReason(null);
     setMarks({});
     setNote('');
+    setLogs([null, null, null]);
     showToast('Partida registrada');
   };
 
@@ -168,7 +246,8 @@ export default function RegistrarPartida() {
 
         <div>
           <div className="small muted" style={{ marginBottom: 8 }}>
-            Resultado (melhor de 3 — para partida única, marque só o Jogo 1)
+            Resultado (melhor de 3 — para partida única, marque só o Jogo 1). No TCG Live, exporte o Battle Log e use “Colar log” para
+            preencher sozinho.
           </div>
           <div className="stack">
             {games.map((g, i) => (
@@ -194,6 +273,8 @@ export default function RegistrarPartida() {
                     { value: 2 as Turn, label: '2º' },
                   ]}
                 />
+                <BattleLogImport onApply={(info, me) => applyLog(i, info, me)} />
+                {logs[i] && <LogSummary entry={logs[i]!} game={g} onClear={() => setLogs((ls) => ls.map((x, j) => (j === i ? null : x)))} />}
               </div>
             ))}
           </div>

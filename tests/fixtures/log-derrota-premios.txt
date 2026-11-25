@@ -1,0 +1,280 @@
+Preparação
+_Rival_2_ escolheu cara para a jogada inicial de moeda.
+_Rival_2_ venceu a jogada de moeda.
+_Rival_2_ decidiu jogar primeiro.
+_Rival_2_ comprou 7 cartas para a mão inicial.
+- 7 cartas compradas.
+Treinador_1 comprou 7 cartas para a mão inicial.
+- 7 cartas compradas.
+   • Drakloak, Cartão Vermelho Especial, Ultra Bola, Energia Psíquico Básica, Meowth ex, Moltres, Plínio
+_Rival_2_ comprou uma nova mão.
+- Cartas reveladas de compras de nova mão inicial: 1.
+   • Poké Tablet, Energia Legado, Dudunsparce, Hilda, Poffin de Colega, Hilda, Balão de Ar
+_Rival_2_ comprou 2 novas mãos.
+- Cartas reveladas de compras de nova mão inicial: 2.
+   • Energia Psíquico Telepática, Poké Tablet, Dudunsparce, Dudunsparce, Hilda, Energia Nebulosa, Balão de Ar
+Treinador_1 comprou 2 mais cartas porque _Rival_2_ comprou pelo menos 1 nova mão.
+- Treinador_1 comprou 2 cartas.
+   • Dreepy, Drakloak
+_Rival_2_ jogou Dunsparce no Campo Ativo.
+Treinador_1 jogou Moltres no Campo Ativo.
+
+Turno de _Rival_2_
+_Rival_2_ comprou uma carta.
+_Rival_2_ jogou Torre Prisma como Estádio.
+_Rival_2_ jogou Clefairy ex da Lílian no Banco.
+_Rival_2_ jogou Torre Prisma.
+- _Rival_2_ descartou 2 cartas.
+   • Determinação da Lílian, Pokégear 3.0
+- _Rival_2_ comprou uma carta.
+_Rival_2_ ligou Energia Planta Crescente a Clefairy ex da Lílian no Banco.
+_Rival_2_ encerrou seu turno.
+
+Turno de Treinador_1
+Treinador_1 comprou Determinação da Lílian.
+Treinador_1 jogou Dreepy no Banco.
+Treinador_1 ligou Energia Psíquico Básica a Dreepy no Banco.
+Treinador_1 jogou Ultra Bola.
+- Treinador_1 descartou 2 cartas.
+   • Meowth ex, Cartão Vermelho Especial
+- Treinador_1 comprou Dreepy.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 jogou Dreepy no Banco.
+Treinador_1 encerrou seu turno.
+
+Turno de _Rival_2_
+_Rival_2_ comprou uma carta.
+_Rival_2_ jogou Torre Prisma.
+- _Rival_2_ descartou 2 cartas.
+   • Ordem da Chefia, Ultra Bola
+- _Rival_2_ comprou uma carta.
+_Rival_2_ ligou Energia Psíquico Telepática a Clefairy ex da Lílian no Banco.
+Energia Psíquico Telepática foi ativada.
+- _Rival_2_ comprou Mew ex e a jogou no Banco.
+- _Rival_2_ embaralhou o próprio baralho.
+_Rival_2_ jogou Determinação da Lílian.
+- _Rival_2_ embaralhou uma carta no baralho dele.
+- _Rival_2_ comprou 8 cartas.
+_Rival_2_ jogou Buneary no Banco.
+_Rival_2_ recuou Dunsparce para o Banco.
+Clefairy ex da Lílian de _Rival_2_ agora está no Campo Ativo.
+_Rival_2_ jogou Poffin de Colega.
+- _Rival_2_ comprou 2 cartas e as jogou no Banco.
+   • Cacnea, Dunsparce
+- _Rival_2_ embaralhou o próprio baralho.
+_Rival_2_ evoluiu Dunsparce para Dudunsparce no Banco.
+Clefairy ex da Lílian de _Rival_2_ usou Cântico da Lua Cheia em Moltres de Treinador_1 para causar 160 pontos de dano.
+- Análise dos danos:
+   • Dano base: 20 pontos de dano
+   • 7 Pokémon no Banco: 140 pontos de dano
+   • Dano total: 160 pontos de dano
+
+Moltres de Treinador_1 foi Nocauteado!
+_Rival_2_ pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de _Rival_2_.
+Dreepy de Treinador_1 agora está no Campo Ativo.
+
+Turno de Treinador_1
+Treinador_1 comprou Martelo Esmagador.
+Treinador_1 jogou Martelo Esmagador.
+- Treinador_1 jogou uma moeda e saiu cara.
+- Energia Planta Crescente foi descartada de Clefairy ex da Lílian de _Rival_2_.
+Treinador_1 evoluiu Dreepy para Drakloak no Campo Ativo.
+Treinador_1 evoluiu Dreepy para Drakloak no Banco.
+Treinador_1 jogou Determinação da Lílian.
+- Treinador_1 embaralhou Plínio no baralho dele.
+- Treinador_1 comprou 8 cartas.
+   • Poffin de Colega, Energia Psíquico Básica, Poké Tablet, Poké Tablet, Ventilador Portátil, Plínio, Poké Tablet, Martelo Esmagador
+Treinador_1 jogou Martelo Esmagador.
+- Treinador_1 jogou uma moeda e saiu coroa.
+Treinador_1 jogou Poffin de Colega.
+- Treinador_1 comprou 2 cartas e as jogou no Banco.
+   • Budew, Duskull
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 ligou Energia Psíquico Básica a Drakloak no Banco.
+Treinador_1 ligou Ventilador Portátil a Budew no Banco.
+Treinador_1 recuou Drakloak para o Banco.
+- Energia Psíquico Básica foi descartada de Drakloak de Treinador_1.
+Budew de Treinador_1 agora está no Campo Ativo.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Poffin de Colega.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Energia Fogo Básica.
+Treinador_1 jogou Poffin de Colega.
+- Treinador_1 comprou 2 cartas e as jogou no Banco.
+   • Dreepy, Duskull
+- Treinador_1 embaralhou o próprio baralho.
+Budew de Treinador_1 usou Comichão de Pólen em Clefairy ex da Lílian de _Rival_2_ para causar 10 pontos de dano.
+
+Turno de _Rival_2_
+_Rival_2_ comprou uma carta.
+_Rival_2_ ligou Energia Psíquico Telepática a Clefairy ex da Lílian no Campo Ativo.
+_Rival_2_ jogou Dudunsparce.
+- _Rival_2_ comprou 3 cartas.
+- _Rival_2_ embaralhou 2 cartas no baralho dele.
+   • Dudunsparce, Dunsparce
+_Rival_2_ evoluiu Dunsparce para Dudunsparce no Banco.
+_Rival_2_ jogou Dudunsparce.
+- _Rival_2_ comprou 3 cartas.
+- _Rival_2_ embaralhou 2 cartas no baralho dele.
+   • Dudunsparce, Dunsparce
+_Rival_2_ jogou Dunsparce no Banco.
+_Rival_2_ evoluiu Buneary para Mega Lopunny ex no Banco.
+_Rival_2_ jogou Torre Prisma.
+- _Rival_2_ descartou 2 cartas.
+   • Ultra Bola, Poffin de Colega
+- _Rival_2_ comprou uma carta.
+_Rival_2_ jogou Hilda.
+- _Rival_2_ comprou 2 cartas.
+   • Dudunsparce, Energia Legado
+- _Rival_2_ embaralhou o próprio baralho.
+Clefairy ex da Lílian de _Rival_2_ usou Cântico da Lua Cheia em Budew de Treinador_1 para causar 200 pontos de dano.
+- Análise dos danos:
+   • Dano base: 20 pontos de dano
+   • 9 Pokémon no Banco: 180 pontos de dano
+   • Dano total: 200 pontos de dano
+
+Budew de Treinador_1 foi Nocauteado!
+Ventilador Portátil foi descartada de Budew de Treinador_1.
+Ventilador Portátil foi ativada.
+- _Rival_2_ ligou Energia Psíquico Telepática a Cacnea no Banco.
+_Rival_2_ pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de _Rival_2_.
+Drakloak de Treinador_1 agora está no Campo Ativo.
+
+Turno de Treinador_1
+Treinador_1 comprou Dragapult ex.
+Treinador_1 ligou Energia Fogo Básica a Drakloak no Campo Ativo.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Ordem da Chefia.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Fezandipiti ex.
+Treinador_1 jogou Fezandipiti ex no Banco.
+Treinador_1 jogou Poké Tablet.
+- Treinador_1 comprou Drakloak.
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Dreepy para Drakloak no Banco.
+Treinador_1 evoluiu Drakloak para Dragapult ex no Campo Ativo.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Ordem da Chefia.
+Fezandipiti ex de Treinador_1 usou Sair do Roteiro.
+- Treinador_1 comprou 3 cartas.
+   • Drakloak, Dawn, Ruínas Arriscadas
+Treinador_1 jogou Ruínas Arriscadas como Estádio.
+- _Rival_2_ descartou Torre Prisma.
+Treinador_1 jogou Dawn.
+- Treinador_1 comprou 3 cartas.
+   • Munkidori, Dusclops, Dusknoir
+- Treinador_1 embaralhou o próprio baralho.
+Treinador_1 evoluiu Duskull para Dusclops no Banco.
+Dragapult ex de Treinador_1 usou Mergulho Fantasma em Clefairy ex da Lílian de _Rival_2_ para causar 200 pontos de dano.
+- Treinador_1 colocou um contador de dano em Mew ex de Treinador_1.
+- Treinador_1 colocou um contador de dano em Cacnea de Treinador_1.
+- Treinador_1 colocou um contador de dano em Dunsparce de Treinador_1.
+- Treinador_1 colocou 3 contadores de dano em Mega Lopunny ex de Treinador_1.
+Clefairy ex da Lílian de _Rival_2_ foi Nocauteado!
+Energia Psíquico Telepática foi descartada de Clefairy ex da Lílian de _Rival_2_.
+Treinador_1 pegou 2 cartas de Prêmio.
+Martelo Esmagador foi adicionada à mão de Treinador_1.
+Plínio foi adicionada à mão de Treinador_1.
+Dunsparce de _Rival_2_ agora está no Campo Ativo.
+
+Turno de _Rival_2_
+_Rival_2_ comprou uma carta.
+_Rival_2_ jogou Ultra Bola.
+- _Rival_2_ descartou 2 cartas.
+   • Dudunsparce ex, Poké Tablet
+- _Rival_2_ comprou Cacturne.
+- _Rival_2_ embaralhou o próprio baralho.
+_Rival_2_ evoluiu Cacnea para Cacturne no Banco.
+_Rival_2_ evoluiu Dunsparce para Dudunsparce no Campo Ativo.
+_Rival_2_ ligou Energia Legado a Mew ex no Banco.
+_Rival_2_ jogou Determinação da Lílian.
+- _Rival_2_ embaralhou 5 cartas no baralho dele.
+- _Rival_2_ comprou 6 cartas.
+_Rival_2_ jogou Dudunsparce.
+- _Rival_2_ comprou 3 cartas.
+- _Rival_2_ embaralhou 2 cartas no baralho dele.
+   • Dudunsparce, Dunsparce
+Mew ex de _Rival_2_ agora está no Campo Ativo.
+_Rival_2_ jogou Maca Noturna.
+- _Rival_2_ moveu Clefairy ex da Lílian de _Rival_2_ para a mão dele.
+_Rival_2_ jogou Clefairy ex da Lílian no Banco.
+Ruínas Arriscadas foi ativada.
+- _Rival_2_ colocou 2 contadores de dano em Clefairy ex da Lílian de Treinador_1.
+Mew ex de _Rival_2_ usou Propulsão de Tempestade em Dragapult ex de Treinador_1 para causar 460 pontos de dano. Dragapult ex de Treinador_1 recebeu 230 pontos de dano a mais por ter Fraqueza a Psíquico.
+- Análise dos danos:
+   • Dano base: 60 pontos de dano
+   • Dano: 170 pontos de dano
+   • Dano: 170 pontos de dano
+   • Fraqueza a Psíquico: 230 pontos de dano
+   • Dano total: 460 pontos de dano
+
+Dragapult ex de Treinador_1 foi Nocauteado!
+- 4 cartas foram descartadas de Dragapult ex de Treinador_1.
+   • Energia Psíquico Básica, Energia Fogo Básica, Drakloak, Dreepy
+_Rival_2_ pegou 2 cartas de Prêmio.
+Uma carta foi adicionada à mão de _Rival_2_.
+Uma carta foi adicionada à mão de _Rival_2_.
+Dusclops de Treinador_1 agora está no Campo Ativo.
+
+Turno de Treinador_1
+Treinador_1 comprou Dusclops.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Martelo Esmagador.
+Treinador_1 jogou Martelo Esmagador.
+- Treinador_1 jogou uma moeda e saiu coroa.
+Treinador_1 jogou Martelo Esmagador.
+- Treinador_1 jogou uma moeda e saiu coroa.
+Drakloak de Treinador_1 usou Ordem de Reconhecimento.
+- Treinador_1 comprou Determinação da Lílian.
+Treinador_1 evoluiu Duskull para Dusclops no Banco.
+Treinador_1 evoluiu Dusclops para Dusknoir no Campo Ativo.
+Fezandipiti ex de Treinador_1 usou Sair do Roteiro.
+- Treinador_1 comprou 3 cartas.
+   • Encorajamento da Rose, Ultra Bola, Maca Noturna
+Treinador_1 jogou Maca Noturna.
+- Treinador_1 moveu Dragapult ex de Treinador_1 para a mão dele.
+Treinador_1 evoluiu Drakloak para Dragapult ex no Banco.
+Treinador_1 jogou Encorajamento da Rose.
+- Treinador_1 ligou Energia Psíquico Básica a Dragapult ex no Banco.
+- Treinador_1 ligou Energia Fogo Básica a Dragapult ex no Banco.
+Dusknoir de Treinador_1 usou Explosão Maldita.
+- Treinador_1 colocou 13 contadores de dano em Clefairy ex da Lílian de Treinador_1.
+Dusknoir de Treinador_1 foi Nocauteado!
+- 2 cartas foram descartadas de Dusknoir de Treinador_1.
+   • Dusclops, Duskull
+_Rival_2_ pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de _Rival_2_.
+Dragapult ex de Treinador_1 agora está no Campo Ativo.
+Dragapult ex de Treinador_1 usou Mergulho Fantasma em Mew ex de _Rival_2_ para causar 200 pontos de dano.
+- Treinador_1 colocou 6 contadores de dano em Clefairy ex da Lílian de Treinador_1.
+Mew ex de _Rival_2_ foi Nocauteado!
+Energia Legado foi descartada de Mew ex de _Rival_2_.
+Clefairy ex da Lílian de _Rival_2_ foi Nocauteado!
+Treinador_1 pegou 3 cartas de Prêmio.
+Energia Fogo Básica foi adicionada à mão de Treinador_1.
+Poffin de Colega foi adicionada à mão de Treinador_1.
+Maca Noturna foi adicionada à mão de Treinador_1.
+Cacturne de _Rival_2_ agora está no Campo Ativo.
+
+Turno de _Rival_2_
+_Rival_2_ comprou uma carta.
+_Rival_2_ ligou Balão de Ar a Cacturne no Campo Ativo.
+_Rival_2_ ligou Energia Nebulosa a Mega Lopunny ex no Banco.
+_Rival_2_ recuou Cacturne para o Banco.
+Mega Lopunny ex de _Rival_2_ agora está no Campo Ativo.
+_Rival_2_ jogou Ordem da Chefia.
+- Fezandipiti ex de Treinador_1 foi trocado por Dragapult ex de Treinador_1 para se tonar o Pokémon Ativo.
+Fezandipiti ex de Treinador_1 agora está no Campo Ativo.
+Mega Lopunny ex de _Rival_2_ usou Propulsão de Tempestade em Fezandipiti ex de Treinador_1 para causar 230 pontos de dano.
+- Análise dos danos:
+   • Dano base: 60 pontos de dano
+   • Dano: 170 pontos de dano
+   • Dano: 170 pontos de dano
+   • Dano total: 230 pontos de dano
+
+Fezandipiti ex de Treinador_1 foi Nocauteado!
+_Rival_2_ pegou uma carta de Prêmio.
+Uma carta foi adicionada à mão de _Rival_2_.
+O oponente pegou todas as cartas de Prêmio. _Rival_2_ venceu.
