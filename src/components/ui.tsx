@@ -50,6 +50,38 @@ export function Rate({ rec, min = SMALL_SAMPLE, showN = true }: { rec: WinRecord
   );
 }
 
+/** Taxa em destaque com barra (verde ≥ 55%, âmbar 45–55%, vermelho < 45%); a marca no meio é 50%. */
+export function RateBar({ rec, min = SMALL_SAMPLE }: { rec: WinRecord; min?: number }) {
+  if (rec.n === 0 || rec.rate == null) return <span className="faint small">sem partidas</span>;
+  const small = rec.n < min;
+  const tone = rec.rate >= 0.55 ? 'good' : rec.rate >= 0.45 ? 'mid' : 'bad';
+  return (
+    <div title={small ? 'amostra pequena' : undefined}>
+      <div className={`ratebar${small ? ' small-sample' : ''}`}>
+        <span className="ratebar-pct">{pct(rec.rate)}</span>
+        <span className="ratebar-track" aria-hidden="true">
+          <span className={`ratebar-fill ${tone}`} style={{ width: `${Math.round(rec.rate * 100)}%` }} />
+          <span className="ratebar-mark" />
+        </span>
+      </div>
+      <div className="ratebar-sub">
+        {rec.v}V {rec.d}D{rec.e ? ` ${rec.e}E` : ''} · {rec.n} {rec.n === 1 ? 'partida' : 'partidas'} · faixa {range(rec.low, rec.high)}
+      </div>
+    </div>
+  );
+}
+
+export function ShareBar({ share, max }: { share: number; max: number }) {
+  return (
+    <span className="sharebar">
+      <span className="num">{share.toFixed(1)}%</span>
+      <span className="sharebar-track" aria-hidden="true">
+        <span className="sharebar-fill" style={{ width: `${Math.min(100, (share / Math.max(max, 1)) * 100)}%`, display: 'block' }} />
+      </span>
+    </span>
+  );
+}
+
 export function Record({ rec }: { rec: WinRecord }) {
   return (
     <span className="num tiny muted">

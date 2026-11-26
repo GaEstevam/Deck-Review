@@ -1,3 +1,4 @@
+import Dropdown from '../components/Dropdown';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import DecklistInput, { useParsedList } from '../components/DecklistInput';
@@ -5,10 +6,11 @@ import DecklistView from '../components/DecklistView';
 import OwnershipSummary from '../components/OwnershipSummary';
 import { PageHead, Rate, Toast, useToast } from '../components/ui';
 import { checkDeck } from '../lib/collection';
-import { diffCards, formatChanges, formatDecklist } from '../lib/decklist';
+import { diffCards, formatChanges, formatDecklist, uniqueNames } from '../lib/decklist';
 import { fmtDate } from '../lib/format';
+import { mainPokemon } from '../lib/pokemon';
 import { record } from '../lib/stats';
-import { addVersion, deleteDeck, deleteVersion, renameDeck, setCurrentVersion, setDeckStatus } from '../store/actions';
+import { addVersion, deleteDeck, deleteVersion, renameDeck, setCurrentVersion, setDeckStatus, setMainPokemon } from '../store/actions';
 import { deckVersions } from '../store/selection';
 import { useData } from '../store/store';
 import type { DeckStatus, DeckVersion } from '../types';
@@ -87,11 +89,16 @@ export default function DeckDetalhe() {
   return (
     <>
       <PageHead title={deck.name} subtitle={<Link to="/decks">← Meus decks</Link>}>
-        <select className="inline-select" value={deck.status} onChange={(e) => setDeckStatus(deck.id, e.target.value as DeckStatus)} aria-label="Situação">
-          <option value="testando">Testando</option>
-          <option value="principal">Principal</option>
-          <option value="arquivado">Arquivado</option>
-        </select>
+        <Dropdown<DeckStatus>
+          ariaLabel="Situação"
+          value={deck.status}
+          onChange={(v) => setDeckStatus(deck.id, v)}
+          options={[
+            { value: 'testando', label: 'Testando' },
+            { value: 'principal', label: 'Principal' },
+            { value: 'arquivado', label: 'Arquivado' },
+          ]}
+        />
         <button
           onClick={() => {
             const n = prompt('Novo nome do deck', deck.name);
@@ -108,6 +115,24 @@ export default function DeckDetalhe() {
       </PageHead>
 
       {newVersion && <NewVersionForm deckId={deck.id} base={latest} onDone={() => setNewVersion(false)} />}
+
+      <div className="card section row between">
+        <div>
+          <h3>Pokémon principal</h3>
+          <p className="small muted" style={{ marginTop: 2 }}>
+            Define a cor e a miniatura da faixa do Painel. No automático: {mainPokemon({ name: deck.name }, current ?? null) ?? '—'}.
+          </p>
+        </div>
+        <Dropdown
+          ariaLabel="Pokémon principal"
+          value={deck.mainPokemon ?? ''}
+          onChange={(v) => setMainPokemon(deck.id, v || null)}
+          options={[
+            { value: '', label: 'Automático' },
+            ...uniqueNames((current?.cards ?? []).filter((c) => c.type === 'pokemon')).map((n) => ({ value: n, label: n })),
+          ]}
+        />
+      </div>
 
       <div className="card section">
         <div className="card-head">

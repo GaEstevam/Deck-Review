@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import AlertList from '../components/AlertList';
 import DeckScopeBar from '../components/DeckScopeBar';
+import EventHero from '../components/EventHero';
 import MigrationBanner from '../components/MigrationBanner';
 import OwnershipSummary from '../components/OwnershipSummary';
 import WeeklyChart from '../components/WeeklyChart';
 import { Empty, PageHead } from '../components/ui';
 import { computeAlerts } from '../lib/alerts';
 import { checkDeck } from '../lib/collection';
-import { daysBetween, fmtDate, pct, plural, pts, range, today } from '../lib/format';
+import { pct, plural, pts, range } from '../lib/format';
 import { expectedRate, record, SMALL_SAMPLE, trend, weeklySeries } from '../lib/stats';
 import { useSelection } from '../store/selection';
 
@@ -23,7 +24,6 @@ export default function Painel() {
   const sel = useSelection();
   const { data, deck, version, versions, deckMatches, scopeMatches } = sel;
   const s = data.settings;
-  const days = daysBetween(today(), s.eventDate);
 
   const view = useMemo(() => {
     const rec = record(scopeMatches);
@@ -37,33 +37,7 @@ export default function Painel() {
     };
   }, [scopeMatches, deckMatches, data.meta.entries, data.collection, versions, version]);
 
-  const countdown = (
-    <div className="hero">
-      <div className="hero-row">
-        <div>
-          <h2>
-            {days > 0 ? `Rumo ao ${s.eventName}` : days === 0 ? `Hoje é o ${s.eventName}` : `${s.eventName} encerrado`}
-            <span className="dot">.</span>
-          </h2>
-          <p>
-            {days >= 0 ? fmtDate(s.eventDate) : <Link to="/config" style={{ color: '#fff' }}>Definir o próximo evento</Link>}
-            {deck ? ` · ${deck.name}${version ? ` v${version.number}` : ''}` : ''}
-          </p>
-          <div className="energy-dots" style={{ marginTop: 14 }} aria-hidden="true">
-            {['--fire', '--water', '--grass', '--lightning', '--psychic', '--fighting'].map((c) => (
-              <span key={c} style={{ background: `var(${c})` }} />
-            ))}
-          </div>
-        </div>
-        {days > 0 && (
-          <div style={{ textAlign: 'right' }}>
-            <div className="big num">{days}</div>
-            <div style={{ color: 'rgba(255,255,255,.85)', fontSize: 13 }}>{days === 1 ? 'dia restante' : 'dias restantes'}</div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  const countdown = <EventHero deck={deck} version={version} settings={s} />;
 
   if (!deck) {
     return (

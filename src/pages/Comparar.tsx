@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import Dropdown from '../components/Dropdown';
 import { Empty, PageHead, Rate } from '../components/ui';
 import { fmtDate, pct, pts } from '../lib/format';
 import { COMPARE_SMALL_SAMPLE, expectedRate, matchups, record } from '../lib/stats';
@@ -22,18 +23,18 @@ function resolve(data: AppData, key: string): { label: string; matches: Match[] 
 function Picker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const data = useData();
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value)}>
-      {data.decks.map((d) => (
-        <optgroup key={d.id} label={d.name}>
-          <option value={`deck:${d.id}`}>{d.name} — todas as versões</option>
-          {deckVersions(data, d.id).map((v) => (
-            <option key={v.id} value={`ver:${v.id}`}>
-              {d.name} v{v.number} ({fmtDate(v.date)})
-            </option>
-          ))}
-        </optgroup>
-      ))}
-    </select>
+    <Dropdown
+      block
+      value={value}
+      onChange={onChange}
+      options={data.decks.map((d) => ({
+        label: d.name,
+        options: [
+          { value: `deck:${d.id}`, label: `${d.name} — todas as versões` },
+          ...deckVersions(data, d.id).map((v) => ({ value: `ver:${v.id}`, label: `${d.name} v${v.number}`, hint: fmtDate(v.date) })),
+        ],
+      }))}
+    />
   );
 }
 

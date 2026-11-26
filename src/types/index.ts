@@ -19,6 +19,8 @@ export interface Deck {
   status: DeckStatus;
   currentVersionId: string | null;
   createdAt: string;
+  /** Pokémon principal escolhido (nome da carta). Vazio = o app escolhe sozinho. */
+  mainPokemon?: string;
 }
 
 export interface DeckVersion {

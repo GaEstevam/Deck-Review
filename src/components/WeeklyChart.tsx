@@ -28,8 +28,8 @@ export default function WeeklyChart({ series }: { series: { week: string; record
       ))}
       <defs>
         <linearGradient id="area-grad" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#f5b333" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#f5b333" stopOpacity="0" />
+          <stop offset="0%" style={{ stopColor: 'var(--accent)' }} stopOpacity="0.35" />
+          <stop offset="100%" style={{ stopColor: 'var(--accent)' }} stopOpacity="0" />
         </linearGradient>
       </defs>
       {series.length > 1 && <path className="area" d={`${path} L${pts[pts.length - 1][0].toFixed(1)},${y(0)} L${pts[0][0].toFixed(1)},${y(0)} Z`} />}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import BattleLogImport from '../components/BattleLogImport';
+import Dropdown from '../components/Dropdown';
 import { Empty, PageHead, Seg, Toast, useToast } from '../components/ui';
 import { END_REASON_LABEL, suggestOpponentDeck, type BattleLogInfo } from '../lib/battleLog';
 import { normalize, uniqueNames } from '../lib/decklist';
@@ -258,24 +259,17 @@ export default function RegistrarPartida({ editId }: { editId?: string } = {}) {
         <div className="field-row">
           <label>
             Deck
-            <select value={deck.id} onChange={(e) => changeDeck(e.target.value)}>
-              {activeDecks.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
+            <Dropdown block ariaLabel="Deck" value={deck.id} onChange={changeDeck} options={activeDecks.map((d) => ({ value: d.id, label: d.name }))} />
           </label>
           <label>
             Versão
-            <select value={version.id} onChange={(e) => setVersionId(e.target.value)}>
-              {versions.map((v) => (
-                <option key={v.id} value={v.id}>
-                  v{v.number}
-                  {v.id === deck.currentVersionId ? ' (atual)' : ''}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              block
+              ariaLabel="Versão"
+              value={version.id}
+              onChange={setVersionId}
+              options={versions.map((v) => ({ value: v.id, label: `v${v.number}`, hint: v.id === deck.currentVersionId ? 'atual' : undefined }))}
+            />
           </label>
           <label>
             Data

@@ -63,6 +63,15 @@ export function renameDeck(deckId: string, name: string): void {
   });
 }
 
+export function setMainPokemon(deckId: string, name: string | null): void {
+  update((d) => {
+    const deck = d.decks.find((x) => x.id === deckId);
+    if (!deck) return;
+    if (name) deck.mainPokemon = name;
+    else delete deck.mainPokemon;
+  });
+}
+
 export function setDeckStatus(deckId: string, status: DeckStatus): void {
   update((d) => {
     const deck = d.decks.find((x) => x.id === deckId);

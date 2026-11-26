@@ -1,5 +1,6 @@
 import { selectDeck, setScope } from '../store/actions';
 import type { Selection } from '../store/selection';
+import Dropdown from './Dropdown';
 import { Seg } from './ui';
 
 /** Escolha do deck e do recorte (versão atual ou deck inteiro), compartilhada entre telas. */
@@ -9,14 +10,12 @@ export default function DeckScopeBar({ sel, showScope = true }: { sel: Selection
   if (!deck) return null;
   return (
     <div className="row">
-      <select className="inline-select" value={deck.id} onChange={(e) => selectDeck(e.target.value)} aria-label="Deck">
-        {decks.map((d) => (
-          <option key={d.id} value={d.id}>
-            {d.name}
-            {d.status === 'arquivado' ? ' (arquivado)' : ''}
-          </option>
-        ))}
-      </select>
+      <Dropdown
+        value={deck.id}
+        onChange={selectDeck}
+        ariaLabel="Deck"
+        options={decks.map((d) => ({ value: d.id, label: d.name, hint: d.status === 'arquivado' ? 'arquivado' : undefined }))}
+      />
       {showScope && (
         <Seg
           value={sel.scope}

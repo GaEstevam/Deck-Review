@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import DeckScopeBar from '../components/DeckScopeBar';
-import { Empty, PageHead, Rate, Record } from '../components/ui';
+import { Empty, PageHead, RateBar, ShareBar } from '../components/ui';
 import { THRESHOLDS } from '../lib/alerts';
 import { matchups, SMALL_SAMPLE, turnSplit } from '../lib/stats';
 import { useSelection } from '../store/selection';
@@ -11,6 +11,7 @@ export default function Confrontos() {
   const { data, deck, scopeMatches } = sel;
   const rows = useMemo(() => matchups(scopeMatches, data.meta.entries), [scopeMatches, data.meta.entries]);
   const ts = useMemo(() => turnSplit(scopeMatches), [scopeMatches]);
+  const maxShare = Math.max(0, ...rows.map((r) => r.share));
 
   if (!deck) return <Empty title="Nenhum deck" to="/decks" action="Cadastrar deck" />;
 
@@ -30,9 +31,8 @@ export default function Confrontos() {
               <thead>
                 <tr>
                   <th>Oponente</th>
-                  <th className="r">Meta</th>
-                  <th>Taxa · faixa · partidas</th>
-                  <th>Placar</th>
+                  <th className="r">Fatia do meta</th>
+                  <th>Sua taxa de vitória</th>
                   <th />
                 </tr>
               </thead>
@@ -49,11 +49,10 @@ export default function Confrontos() {
                         {r.name}
                         {!r.inMeta && <span className="tiny faint"> · fora do meta</span>}
                       </td>
-                      <td className="r num">{r.inMeta ? `${r.share.toFixed(1)}%` : '—'}</td>
+                      <td className="r">{r.inMeta ? <ShareBar share={r.share} max={maxShare} /> : <span className="faint">—</span>}</td>
                       <td>
-                        <Rate rec={r.record} />
+                        <RateBar rec={r.record} />
                       </td>
-                      <td>{r.record.n > 0 && <Record rec={r.record} />}</td>
                       <td>
                         {bad && <span className="badge bad">treinar</span>}
                         {r.record.n > 0 && r.record.n < SMALL_SAMPLE && <span className="badge">amostra pequena</span>}
@@ -70,16 +69,16 @@ export default function Confrontos() {
       <div className="card section">
         <h2>Começar em 1º ou 2º</h2>
         <p className="small muted" style={{ margin: '4px 0 12px' }}>
-          Por jogo, somando todos os confrontos.
+          Por jogo, somando todos os confrontos. A marca no meio da barra é 50%.
         </p>
         <div className="grid grid-2">
           <div>
-            <div className="stat-label">Comecei em 1º</div>
-            <Rate rec={ts.first} />
+            <div className="stat-label" style={{ marginBottom: 6 }}>Comecei em 1º</div>
+            <RateBar rec={ts.first} />
           </div>
           <div>
-            <div className="stat-label">Comecei em 2º</div>
-            <Rate rec={ts.second} />
+            <div className="stat-label" style={{ marginBottom: 6 }}>Comecei em 2º</div>
+            <RateBar rec={ts.second} />
           </div>
         </div>
       </div>

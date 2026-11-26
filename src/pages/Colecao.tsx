@@ -1,3 +1,4 @@
+import Dropdown from '../components/Dropdown';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DecklistInput, { useParsedList } from '../components/DecklistInput';
@@ -43,18 +44,19 @@ function BuildCheck() {
     <div className="card">
       <div className="card-head">
         <h2>Posso montar?</h2>
-        <select className="inline-select" value={pick} onChange={(e) => setPick(e.target.value)} aria-label="Versão para conferir">
-          {decks.map((d) => (
-            <optgroup key={d.id} label={d.name}>
-              {deckVersions(data, d.id).map((v) => (
-                <option key={v.id} value={v.id}>
-                  {d.name} v{v.number}
-                  {v.id === d.currentVersionId ? ' (atual)' : ''}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        <Dropdown
+          ariaLabel="Versão para conferir"
+          value={pick}
+          onChange={setPick}
+          options={decks.map((d) => ({
+            label: d.name,
+            options: deckVersions(data, d.id).map((v) => ({
+              value: v.id,
+              label: `${d.name} v${v.number}`,
+              hint: v.id === d.currentVersionId ? 'atual' : undefined,
+            })),
+          }))}
+        />
       </div>
 
       {report && (
@@ -192,13 +194,7 @@ function AddCards() {
             </label>
             <label>
               Tipo
-              <select value={type} onChange={(e) => setType(e.target.value as CardType)}>
-                {TYPE_ORDER.map((t) => (
-                  <option key={t} value={t}>
-                    {TYPE_LABEL[t]}
-                  </option>
-                ))}
-              </select>
+              <Dropdown<CardType> block ariaLabel="Tipo" value={type} onChange={setType} options={TYPE_ORDER.map((t) => ({ value: t, label: TYPE_LABEL[t] }))} />
             </label>
           </div>
           <div className="row">
@@ -246,14 +242,12 @@ export default function Colecao() {
           <h2>Minhas cartas</h2>
           <div className="row">
             <input style={{ width: 200 }} value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar…" aria-label="Buscar carta" />
-            <select className="inline-select" style={{ minWidth: 130 }} value={type} onChange={(e) => setType(e.target.value as CardType | 'todas')} aria-label="Tipo">
-              <option value="todas">Todos os tipos</option>
-              {TYPE_ORDER.map((t) => (
-                <option key={t} value={t}>
-                  {TYPE_LABEL[t]}
-                </option>
-              ))}
-            </select>
+            <Dropdown<CardType | 'todas'>
+              ariaLabel="Tipo"
+              value={type}
+              onChange={setType}
+              options={[{ value: 'todas', label: 'Todos os tipos' }, ...TYPE_ORDER.map((t) => ({ value: t, label: TYPE_LABEL[t] }))]}
+            />
           </div>
         </div>
         {list.length === 0 ? (

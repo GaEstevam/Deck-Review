@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { useAuth } from '../auth/session';
-import { PageHead, Toast, useToast } from '../components/ui';
+import { PageHead, Seg, Toast, useToast } from '../components/ui';
 import { sair } from '../firebase/auth';
 import { today } from '../lib/format';
+import { setThemeChoice, THEME_OPTIONS, useThemeChoice } from '../lib/theme';
 import { setSettings } from '../store/actions';
 import { markMigration, readLegacyData } from '../store/legacy';
 import { emptyData, getData, normalizeData, replaceData, update, useData, useStoreStatus } from '../store/store';
@@ -122,6 +123,17 @@ function BackupCard() {
   );
 }
 
+function AppearanceCard() {
+  const theme = useThemeChoice();
+  return (
+    <div className="card stack">
+      <h2>Aparência</h2>
+      <Seg value={theme} onChange={setThemeChoice} options={THEME_OPTIONS} />
+      <p className="small muted">O escuro é monocromático (preto e cinzas). “Automático” segue o tema do aparelho. Vale só para este aparelho.</p>
+    </div>
+  );
+}
+
 export default function Config() {
   const data = useData();
   const s = data.settings;
@@ -151,6 +163,7 @@ export default function Config() {
             primeira vez.
           </p>
         </div>
+        <AppearanceCard />
         <AccountCard />
         <BackupCard />
         <LegacyCard />

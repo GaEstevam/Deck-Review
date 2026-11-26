@@ -1,3 +1,4 @@
+import Dropdown from '../components/Dropdown';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DecklistInput, { useParsedList } from '../components/DecklistInput';
@@ -36,10 +37,16 @@ function NewDeckForm({ onDone }: { onDone: () => void }) {
         </label>
         <label>
           Situação
-          <select value={status} onChange={(e) => setStatus(e.target.value as DeckStatus)}>
-            <option value="testando">Testando</option>
-            <option value="principal">Principal</option>
-          </select>
+          <Dropdown<DeckStatus>
+            block
+            ariaLabel="Situação"
+            value={status}
+            onChange={setStatus}
+            options={[
+              { value: 'testando', label: 'Testando' },
+              { value: 'principal', label: 'Principal' },
+            ]}
+          />
         </label>
       </div>
       <label>

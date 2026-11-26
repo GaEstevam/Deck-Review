@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/session';
 import { sair } from '../firebase/auth';
+import { setThemeChoice, THEME_OPTIONS, useThemeChoice } from '../lib/theme';
 import { useStoreStatus } from '../store/store';
 
 const MAIN = [
@@ -43,11 +44,17 @@ function UserMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const loc = useLocation();
+  const theme = useThemeChoice();
   useEffect(() => setOpen(false), [loc.pathname]);
   useEffect(() => {
     const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    const esc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
     document.addEventListener('mousedown', close);
-    return () => document.removeEventListener('mousedown', close);
+    document.addEventListener('keydown', esc);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', esc);
+    };
   }, []);
   if (!user) return null;
   const name = user.displayName || user.email?.split('@')[0] || 'Treinador';
@@ -62,6 +69,16 @@ function UserMenu() {
           <div className="who">
             <div style={{ fontWeight: 600 }}>{name}</div>
             <div className="tiny muted">{user.email}</div>
+          </div>
+          <div className="menu-theme">
+            <span className="tiny muted">Tema</span>
+            <div className="seg" role="radiogroup" aria-label="Tema">
+              {THEME_OPTIONS.map((o) => (
+                <button key={o.value} type="button" role="radio" aria-checked={theme === o.value} className={theme === o.value ? 'on' : ''} onClick={() => setThemeChoice(o.value)}>
+                  {o.label}
+                </button>
+              ))}
+            </div>
           </div>
           <Link to="/config">Configurações</Link>
           <button onClick={() => void sair()}>Sair</button>

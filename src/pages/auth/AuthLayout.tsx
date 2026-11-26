@@ -26,11 +26,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             Seu deck pronto para o Regional<span className="dot">.</span>
           </h1>
           <p className="lead">Registre cada partida, acompanhe as versões da lista e saiba contra quem treinar — antes do torneio.</p>
-          <div className="float-chip">
-            <span className="glass-chip">
-              <span className="ball" /> Taxa esperada · <b>pelo meta</b>
-            </span>
-          </div>
           <div className="auth-hero-foot">
             <div className="auth-stat">
               {days > 0 ? (
